@@ -103,12 +103,12 @@ VALUES
 
 INSERT INTO karyawan (id_karyawan, nama_karyawan, no_telp, jenis_kelamin, id_jabatan) 
 VALUES
-('KA001', 'Indah', '08545354869', 'Perempuan', 'KA'),
-('KA002', 'Nabil', '08545359645', 'Laki-laki', 'KA'),
-('KR001', 'Irul', '08545354169', 'Laki-laki', 'KR'),
-('KR002', 'Dewi', '08545355429', 'Perempuan', 'KR'),
-('OP001', 'Agus', '08545357610', 'Laki-laki', 'OP'),
-('OP002', 'Sulis', '08545357603', 'Perempuan', 'OP');
+('K001', 'Indah', '08545354869', 'Perempuan', 'KA'),
+('K002', 'Nabil', '08545359645', 'Laki-laki', 'KA'),
+('K001', 'Irul', '08545354169', 'Laki-laki', 'KR'),
+('K002', 'Dewi', '08545355429', 'Perempuan', 'KR'),
+('K001', 'Agus', '08545357610', 'Laki-laki', 'OP'),
+('K002', 'Sulis', '08545357603', 'Perempuan', 'OP');
 
 INSERT INTO jabatan (id_jabatan, nama_jabatan, gaji) 
 VALUES 
