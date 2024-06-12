@@ -105,10 +105,10 @@ INSERT INTO karyawan (id_karyawan, nama_karyawan, no_telp, jenis_kelamin, id_jab
 VALUES
 ('K001', 'Indah', '08545354869', 'Perempuan', 'KA'),
 ('K002', 'Nabil', '08545359645', 'Laki-laki', 'KA'),
-('K001', 'Irul', '08545354169', 'Laki-laki', 'KR'),
-('K002', 'Dewi', '08545355429', 'Perempuan', 'KR'),
-('K001', 'Agus', '08545357610', 'Laki-laki', 'OP'),
-('K002', 'Sulis', '08545357603', 'Perempuan', 'OP');
+('K003', 'Irul', '08545354169', 'Laki-laki', 'KR'),
+('K004', 'Dewi', '08545355429', 'Perempuan', 'KR'),
+('K005', 'Agus', '08545357610', 'Laki-laki', 'OP'),
+('K006', 'Sulis', '08545357603', 'Perempuan', 'OP');
 
 INSERT INTO jabatan (id_jabatan, nama_jabatan, gaji) 
 VALUES 
@@ -136,21 +136,22 @@ VALUES
 
 INSERT INTO transaksi (id_pelanggan, kode_ongkir, tgl_masuk, tgl_keluar, keterangan, id_kasir, id_operasional, id_kurir, total_bayar, status, metode_pembayaran)
 VALUES
-('P001', 'AJS', '2024-05-01', '2024-05-05', 'Pesan Antar', 'KA001', 'OP001', 'KR001', 95000, 'Diproses', 'Cash'),
-('P002', 'BJS', '2024-05-03', '2024-05-06', 'Pesan Antar', 'KA002', 'OP002', 'KR002', 31000, 'Siap Antar', 'Qris'),
-('P003', 'NOT', '2024-05-04', '2024-05-05', 'Ambil Ditempat', 'KA001', 'OP001', NULL, 27000, 'Siap Diambil', 'Cash'),
-('P004', 'BNR', '2024-05-05', '2024-05-08', 'Pesan Antar', 'KA001', 'OP001', 'KR001', 45000, 'Selesai', 'Cash'),
-('P005', 'NOT', '2024-05-06', '2024-05-09', 'Ambil Ditempat', 'KA002', 'OP002', NULL, 26000, 'Siap Ambil', 'Qris'),
-('P006', 'KST', '2024-05-07', '2024-05-11', 'Pesan Antar', 'KA001', 'OP001', 'KR001', 43000, 'Selesai', 'Cash'),
-('P007', 'PDW', '2024-05-08', '2024-05-11', 'Pesan Antar', 'KA002', 'OP002', 'KR002', 43000, 'Diproses', 'Qris'),
-('P008', 'NOT', '2024-05-09', '2024-05-13', 'Ambil Ditempat', 'KA002', 'OP002', NULL, 70000, 'Siap Ambil', 'Cash'),
-('P009', 'NOT', '2024-05-10', '2024-05-11', 'Ambil Ditempat', 'KA001', 'OP001', NULL, 27000, 'Diproses', 'Qris'),
-('P010', 'PWT', '2024-05-11', '2024-05-12', 'Pesan Antar', 'KA001', 'OP001', 'KR001', 54000, 'Siap Antar', 'Cash'),
-('P011', 'TGW', '2024-05-19', '2024-05-22', 'Pesan Antar', 'KA001', 'OP001', 'KR001', 36000, 'Cash', 'Diproses'),
-('P012', 'DNY', '2024-05-24', '2024-05-25', 'Pesan Antar', 'KA002', 'OP002', 'KR002', 28000, 'Qris', 'Siap Antar'),
-('P013', 'KTW', '2024-05-24', '2024-05-28', 'Pesan Antar', 'KA001', 'OP001', 'KR001', 51000, 'Qris', 'Diproses'),
-('P014', 'NOT', '2024-06-02', '2024-06-03', 'Ambil Ditempat', 'KA002', 'OP002', NULL, 44000, 'Cash', 'Diproses'),
-('P015', 'TJS', '2024-06-05', '2024-06-08', 'Pesan Antar', 'KA002', 'OP002', 'KR002', 26000, 'Qris', 'Diproses');
+('P001', 'AJS', '2024-05-01', '2024-05-05', 'Pesan Antar', 'K001', 'K005', 'K003', 95000, 'Diproses', 'Cash'),
+('P002', 'BJS', '2024-05-03', '2024-05-06', 'Pesan Antar', 'K002', 'K006', 'K004', 31000, 'Siap Antar', 'Qris'),
+('P003', 'NOT', '2024-05-04', '2024-05-05', 'Ambil Ditempat', 'K001', 'K005', NULL, 27000, 'Siap Diambil', 'Cash'),
+('P004', 'BNR', '2024-05-05', '2024-05-08', 'Pesan Antar', 'K001', 'K005', 'K003', 45000, 'Selesai', 'Cash'),
+('P005', 'NOT', '2024-05-06', '2024-05-09', 'Ambil Ditempat', 'K002', 'K006', NULL, 26000, 'Siap Diambil', 'Qris'),
+('P006', 'KST', '2024-05-07', '2024-05-11', 'Pesan Antar', 'K001', 'K005', 'K003', 43000, 'Selesai', 'Cash'),
+('P007', 'PDW', '2024-05-08', '2024-05-11', 'Pesan Antar', 'K002', 'K006', 'K004', 43000, 'Diproses', 'Qris'),
+('P008', 'NOT', '2024-05-09', '2024-05-13', 'Ambil Ditempat', 'K002', 'K006', NULL, 70000, 'Siap Diambil', 'Cash'),
+('P009', 'NOT', '2024-05-10', '2024-05-11', 'Ambil Ditempat', 'K001', 'K005', NULL, 27000, 'Diproses', 'Qris'),
+('P010', 'PWT', '2024-05-11', '2024-05-12', 'Pesan Antar', 'K001', 'K005', 'K003', 54000, 'Siap Antar', 'Cash'),
+('P011', 'TGW', '2024-05-19', '2024-05-22', 'Pesan Antar', 'K001', 'K005', 'K003', 36000, 'Diproses', 'Cash'),
+('P012', 'DNY', '2024-05-24', '2024-05-25', 'Pesan Antar', 'K002', 'K006', 'K004', 28000, 'Siap Antar', 'Qris'),
+('P013', 'KTW', '2024-05-24', '2024-05-28', 'Pesan Antar', 'K001', 'K005', 'K003', 51000, 'Diproses', 'Qris'),
+('P014', 'NOT', '2024-06-02', '2024-06-03', 'Ambil Ditempat', 'K002', 'K006', NULL, 44000, 'Diproses', 'Cash'),
+('P015', 'TJS', '2024-06-05', '2024-06-08', 'Pesan Antar', 'K002', 'K006', 'K004', 26000, 'Diproses', 'Qris');
+DESC transaksi;
 
 INSERT INTO detail_transaksi (id_transaksi, id_layanan, berat_per_kg, total)
 VALUES
@@ -213,9 +214,120 @@ GROUP BY
 ORDER BY 
     jumlah_penggunaan DESC;
 
+-- Tabel transaksi pada hari tertentu
+
+SELECT 
+    t.id_pelanggan, 
+    t.tgl_masuk, 
+    t.status, 
+    l.nama_layanan,
+    dt.berat_per_kg,
+    dt.total AS biaya_layanan
+FROM 
+    transaksi t
+JOIN 
+    detail_transaksi dt ON t.id_transaksi = dt.id_transaksi
+JOIN 
+    layanan l ON dt.id_layanan = l.id_layanan
+WHERE 
+    t.tgl_masuk = '2024-05-05';
+
+-- Tabel pesan antar pada hari tertentu (untuk kurir)
+
+SELECT 
+    t.id_pelanggan, 
+    t.id_transaksi,
+    t.tgl_masuk, 
+    t.kode_ongkir, 
+    o.nama_daerah
+FROM 
+    transaksi t
+JOIN 
+    ongkir o ON t.kode_ongkir = o.kode_ongkir
+WHERE
+    t.tgl_masuk = '2024-05-24'
+    AND
+    t.kode_ongkir != 'NOT';
+
+-- Mencari pelanggan dengan nama
+
+SELECT *
+FROM pelanggan
+WHERE nama_pelanggan LIKE 'A%';
+
+-- Mencari transaksi berdasarkan attribute tertentu
+
+SELECT * 
+FROM transaksi
+WHERE status = 'Siap Diambil';
+
+-- Mencari jumlah transaksi yang ditangani oleh karyawan tertentu
+
+SELECT 
+    k.id_karyawan, 
+    k.nama_karyawan, 
+    k.id_jabatan,
+    COUNT(t.keterangan) AS jumlah_transaksi
+FROM 
+    karyawan k
+LEFT JOIN 
+    transaksi t ON k.id_karyawan IN (t.id_kasir, t.id_operasional, t.id_kurir)
+GROUP BY 
+    k.id_karyawan, k.nama_karyawan
+ORDER BY 
+    jumlah_transaksi DESC;
+
+-- Mencari jumlah pelanggan dengan layanan pesan antar
+
+SELECT
+    keterangan,
+    COUNT(id_pelanggan) AS jumlah_pelanggan
+FROM
+    transaksi
+GROUP BY
+    keterangan;
+
+-- Layanan dari termurah ke termahal
+
+SELECT *
+FROM layanan
+ORDER BY
+    biaya_per_kg ASC;
+
+-- Pelanggan dengan transaksi terbanyak ke tersedikit
+
+SELECT
+    p.id_pelanggan, 
+    p.nama_pelanggan,
+    COUNT(t.id_pelanggan) AS Jumlah_Transaksi
+FROM pelanggan p
+JOIN transaksi t ON p.id_pelanggan = t.id_pelanggan
+GROUP BY
+    p.id_pelanggan, 
+    p.nama_pelanggan
+ORDER BY
+    Jumlah_Transaksi DESC;
+
+-- Transaksi berdasarkan waktu tertentu
+
+SELECT *
+FROM transaksi
+WHERE DATE_FORMAT(tgl_masuk, '%Y-%m-%d') = '2024-05-01';
+
+SELECT
+    p.id_pelanggan, 
+    p.nama_pelanggan,
+    COUNT(t.id_pelanggan) AS Jumlah_Transaksi
+FROM pelanggan p
+JOIN transaksi t ON t.id_pelanggan
+ORDER BY
+    Jumlah_Transaksi DESC;
+
 UPDATE transaksi
-SET status = 'Siap Antar'
-WHERE id_transaksi = 10;
+SET id_operasional = 'K005'
+WHERE id_transaksi = 9;
+
+ALTER TABLE detail_transaksi AUTO_INCREMENT = 0;
 
 SELECT * FROM transaksi;
 SELECT * FROM detail_transaksi;
@@ -223,3 +335,11 @@ SELECT * FROM layanan;
 SELECT * FROM pelanggan;
 SELECT * FROM karyawan;
 SELECT * FROM ongkir;
+
+DELETE FROM detail_transaksi;
+DELETE FROM transaksi;
+DELETE FROM karyawan;
+DELETE FROM jabatan;
+DELETE FROM pelanggan;
+DELETE FROM ongkir;
+DELETE FROM layanan;
