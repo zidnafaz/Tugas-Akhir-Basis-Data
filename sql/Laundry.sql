@@ -280,6 +280,8 @@ SELECT *
 FROM transaksi
 WHERE status = 'Siap Diambil';
 
+-- Mencari data transaksi yang siap diantar
+
 SELECT
     t.id_transaksi,
     t.tgl_masuk,
@@ -294,6 +296,7 @@ JOIN
 WHERE
     t.status = 'Siap Antar';
 
+-- Menampilkan data transaksi yang sudah selesai
 
 SELECT 
     t.id_transaksi,
@@ -310,8 +313,6 @@ JOIN
     karyawan k2 ON t.id_operasional = k2.id_karyawan
 WHERE 
     t.status = 'Selesai';
-
-
 
 -- Mencari jumlah transaksi yang ditangani oleh karyawan tertentu
 
@@ -346,7 +347,7 @@ FROM layanan
 ORDER BY
     biaya_per_kg ASC;
 
--- Pelanggan dengan transaksi terbanyak ke tersedikit
+-- Pelanggan dengan layanan terbanyak ke tersedikit
 
 SELECT
     p.id_pelanggan, 
@@ -359,12 +360,25 @@ GROUP BY t.id_pelanggan
 ORDER BY
     Jumlah_Transaksi DESC;
 
+-- Pelanggan dengan transaksi terbanyak ke tersedikit
+
+SELECT
+    p.id_pelanggan, 
+    p.nama_pelanggan,
+    COUNT(t.id_pelanggan) AS Jumlah_Transaksi
+FROM pelanggan p
+JOIN transaksi t ON p.id_pelanggan = t.id_pelanggan
+GROUP BY
+    p.id_pelanggan, 
+    p.nama_pelanggan
+ORDER BY
+    Jumlah_Transaksi DESC;
+
 -- Transaksi berdasarkan waktu tertentu
 
 SELECT *
 FROM transaksi
 WHERE DATE_FORMAT(tgl_masuk, '%Y-%m-%d') = '2024-05-01';
-
 
 -- Jumlah Nominal Transaksi Per Pelanggan Terbesar ke Terkecil
 
@@ -374,7 +388,6 @@ SELECT
 FROM transaksi t
 JOIN pelanggan p ON t.id_pelanggan = p.id_pelanggan
 ORDER BY t.total_bayar DESC;
-
 
 -- Transaksi yang ditangani oleh karyawan tertentu 
 
@@ -411,12 +424,13 @@ GROUP BY
 ORDER BY
     total_revenue DESC;
 
+----------------------------------------------------------------------------------
 
 UPDATE transaksi
-SET id_operasional = 'K005'
-WHERE id_transaksi = 9;
+SET id_pelanggan = 15600
+WHERE id_transaksi = 20;
 
-ALTER TABLE detail_transaksi AUTO_INCREMENT = 0;
+ALTER TABLE detail_transaksi AUTO_INCREMENT = 20;
 
 SELECT * FROM transaksi;
 SELECT * FROM detail_transaksi;
