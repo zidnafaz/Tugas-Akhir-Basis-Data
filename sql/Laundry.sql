@@ -176,7 +176,7 @@ VALUES
 
 SELECT tgl_masuk, COUNT(*) AS jumlah_transaksi
 FROM transaksi
-WHERE DATE_FORMAT(tgl_masuk, '%m-%d') = '05-05'
+WHERE DATE_FORMAT(tgl_masuk, '%m-%d') = '05-24'
 GROUP BY tgl_masuk;
 
 -- Laporan harian
@@ -210,7 +210,7 @@ FROM
 JOIN 
     layanan l ON dt.id_layanan = l.id_layanan
 GROUP BY 
-    dt.id_layanan, l.nama_layanan
+    dt.id_layanan
 ORDER BY 
     jumlah_penggunaan DESC;
 
@@ -222,7 +222,8 @@ SELECT
     t.status, 
     l.nama_layanan,
     dt.berat_per_kg,
-    dt.total AS biaya_layanan
+    dt.total AS biaya_layanan,
+    t.total_bayar
 FROM 
     transaksi t
 JOIN 
@@ -230,24 +231,42 @@ JOIN
 JOIN 
     layanan l ON dt.id_layanan = l.id_layanan
 WHERE 
-    t.tgl_masuk = '2024-05-05';
+    t.tgl_masuk = '2024-05-24';
 
--- Tabel pesan antar pada hari tertentu (untuk kurir)
+-- Data pesan antar pada hari tertentu (untuk kurir)
 
 SELECT 
     t.id_pelanggan, 
     t.id_transaksi,
     t.tgl_masuk, 
     t.kode_ongkir, 
-    o.nama_daerah
+    o.nama_daerah,
+    k.nama_karyawan AS nama_kurir
 FROM 
     transaksi t
 JOIN 
     ongkir o ON t.kode_ongkir = o.kode_ongkir
+JOIN 
+    karyawan k ON t.id_kurir = k.id_karyawan
 WHERE
     t.tgl_masuk = '2024-05-24'
     AND
     t.kode_ongkir != 'NOT';
+
+-- Menampilkan Data total Pengiriman yang sudah dilakukan masing masing kurir
+
+SELECT 
+    k.nama_karyawan AS nama_kurir,
+    COUNT(t.id_transaksi) AS total_pengiriman
+FROM 
+    transaksi t
+JOIN 
+    karyawan k ON t.id_kurir = k.id_karyawan
+WHERE 
+    t.kode_ongkir != 'NOT'
+GROUP BY 
+    t.id_kurir,
+    k.nama_karyawan;
 
 -- Mencari pelanggan dengan nama
 
@@ -260,6 +279,39 @@ WHERE nama_pelanggan LIKE 'A%';
 SELECT * 
 FROM transaksi
 WHERE status = 'Siap Diambil';
+
+SELECT
+    t.id_transaksi,
+    t.tgl_masuk,
+    t.id_pelanggan,
+    p.nama_pelanggan,
+    t.total_bayar,
+    t.status
+FROM
+    transaksi t
+JOIN
+    pelanggan p ON t.id_pelanggan = p.id_pelanggan
+WHERE
+    t.status = 'Siap Antar';
+
+
+SELECT 
+    t.id_transaksi,
+    t.tgl_masuk,
+    t.tgl_keluar,
+    t.total_bayar,
+    k1.nama_karyawan AS kasir,
+    k2.nama_karyawan AS operasional
+FROM 
+    transaksi t
+JOIN 
+    karyawan k1 ON t.id_kasir = k1.id_karyawan
+JOIN 
+    karyawan k2 ON t.id_operasional = k2.id_karyawan
+WHERE 
+    t.status = 'Selesai';
+
+
 
 -- Mencari jumlah transaksi yang ditangani oleh karyawan tertentu
 
@@ -301,10 +353,9 @@ SELECT
     p.nama_pelanggan,
     COUNT(t.id_pelanggan) AS Jumlah_Transaksi
 FROM pelanggan p
-JOIN transaksi t ON p.id_pelanggan = t.id_pelanggan
-GROUP BY
-    p.id_pelanggan, 
-    p.nama_pelanggan
+JOIN transaksi t ON t.id_pelanggan = p.id_pelanggan
+JOIN detail_transaksi d ON d.id_transaksi = t.id_transaksi
+GROUP BY t.id_pelanggan
 ORDER BY
     Jumlah_Transaksi DESC;
 
@@ -314,14 +365,52 @@ SELECT *
 FROM transaksi
 WHERE DATE_FORMAT(tgl_masuk, '%Y-%m-%d') = '2024-05-01';
 
+
+-- Jumlah Nominal Transaksi Per Pelanggan Terbesar ke Terkecil
+
 SELECT
-    p.id_pelanggan, 
     p.nama_pelanggan,
-    COUNT(t.id_pelanggan) AS Jumlah_Transaksi
-FROM pelanggan p
-JOIN transaksi t ON t.id_pelanggan
+    t.total_bayar
+FROM transaksi t
+JOIN pelanggan p ON t.id_pelanggan = p.id_pelanggan
+ORDER BY t.total_bayar DESC;
+
+
+-- Transaksi yang ditangani oleh karyawan tertentu 
+
+SELECT
+    t.id_transaksi,
+    t.tgl_masuk,
+    t.id_pelanggan,
+    p.nama_pelanggan,
+    t.id_kasir,
+    k.nama_karyawan AS nama_kasir,
+    t.total_bayar,
+    t.status
+FROM
+    transaksi t
+JOIN
+    pelanggan p ON t.id_pelanggan = p.id_pelanggan
+JOIN
+    karyawan k ON t.id_kasir = k.id_karyawan
 ORDER BY
-    Jumlah_Transaksi DESC;
+    t.id_kasir,
+    id_transaksi ASC;
+
+-- Menampilkan data Total Pendapatan tiap layanan
+
+SELECT
+    l.nama_layanan,
+    SUM(d.total) AS total_revenue
+FROM
+    detail_transaksi d
+JOIN
+    layanan l ON d.id_layanan = l.id_layanan
+GROUP BY
+    l.nama_layanan
+ORDER BY
+    total_revenue DESC;
+
 
 UPDATE transaksi
 SET id_operasional = 'K005'
