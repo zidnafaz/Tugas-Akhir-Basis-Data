@@ -424,6 +424,45 @@ GROUP BY
 ORDER BY
     total_revenue DESC;
 
+-- Tampilan data yang ada di nota
+
+SELECT 
+    t.id_transaksi,
+    p.nama_pelanggan,
+    t.tgl_masuk,
+    t.tgl_keluar,
+    GROUP_CONCAT(l.nama_layanan SEPARATOR ', ') AS layanan_diambil,
+    GROUP_CONCAT(dt.total SEPARATOR ', ') AS total_per_layanan,
+    o.nama_daerah,
+    o.biaya AS biaya_ongkir,
+    k_kasir.nama_karyawan AS nama_kasir,
+    k_operasional.nama_karyawan AS nama_operasional,
+    k_kurir.nama_karyawan AS nama_kurir,
+    t.total_bayar,
+    t.metode_pembayaran
+FROM 
+    transaksi t
+JOIN 
+    pelanggan p ON t.id_pelanggan = p.id_pelanggan
+JOIN 
+    detail_transaksi dt ON t.id_transaksi = dt.id_transaksi
+JOIN 
+    layanan l ON dt.id_layanan = l.id_layanan
+JOIN 
+    ongkir o ON t.kode_ongkir = o.kode_ongkir
+LEFT JOIN 
+    karyawan k_kasir ON t.id_kasir = k_kasir.id_karyawan
+LEFT JOIN 
+    karyawan k_operasional ON t.id_operasional = k_operasional.id_karyawan
+LEFT JOIN 
+    karyawan k_kurir ON t.id_kurir = k_kurir.id_karyawan
+WHERE 
+    t.id_transaksi = 20
+GROUP BY 
+    t.id_transaksi, p.nama_pelanggan, t.tgl_masuk, t.tgl_keluar, o.nama_daerah, o.biaya, k_kasir.nama_karyawan, k_operasional.nama_karyawan, k_kurir.nama_karyawan, t.total_bayar, t.metode_pembayaran
+ORDER BY 
+    t.id_transaksi;
+
 ----------------------------------------------------------------------------------
 
 UPDATE transaksi
