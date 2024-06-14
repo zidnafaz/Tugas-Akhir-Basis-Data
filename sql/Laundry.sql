@@ -150,8 +150,12 @@ VALUES
 ('P012', 'DNY', '2024-05-24', '2024-05-25', 'Pesan Antar', 'K002', 'K006', 'K004', 28000, 'Siap Antar', 'Qris'),
 ('P013', 'KTW', '2024-05-24', '2024-05-28', 'Pesan Antar', 'K001', 'K005', 'K003', 51000, 'Diproses', 'Qris'),
 ('P014', 'NOT', '2024-06-02', '2024-06-03', 'Ambil Ditempat', 'K002', 'K006', NULL, 44000, 'Diproses', 'Cash'),
-('P015', 'TJS', '2024-06-05', '2024-06-08', 'Pesan Antar', 'K002', 'K006', 'K004', 26000, 'Diproses', 'Qris');
-DESC transaksi;
+('P015', 'TJS', '2024-06-05', '2024-06-08', 'Pesan Antar', 'K002', 'K006', 'K004', 26000, 'Diproses', 'Qris'),
+('P003', 'JTM', '2024-06-12', NULL, 'Pesan Antar', 'K002', 'K003', 'K006', 30000, 'Diproses', 'Qris'),
+('P006', 'SBS', '2024-06-12', NULL, 'Pesan Antar', 'K001', 'K003', 'K005', 50000, 'Diproses', 'Qris'),
+('P008', 'DNY', '2024-06-12', NULL, 'Pesan Antar', 'K002', 'K003', 'K005', 56000, 'Diproses', 'Qris'),
+('P014', 'NOT', '2024-06-12', NULL, 'Ambil Ditempat', 'K001', 'K004', NULL, 22800, 'Diproses', 'Qris'),
+('P001', 'NOT', '2024-06-12', NULL, 'Ambil Ditempat', 'K001', 'K003', NULL, 15600, 'Diproses', 'Qris');
 
 INSERT INTO detail_transaksi (id_transaksi, id_layanan, berat_per_kg, total)
 VALUES
@@ -170,7 +174,12 @@ VALUES
 (12, 'CS001', 2, 22000),
 (13, 'SL002', 3, 45000),
 (14, 'CS001', 4, 44000),
-(15, 'CK002', 3, 18000);
+(15, 'CK002', 3, 18000),
+(16, 'CK002', 4, 24000),
+(17, 'CS002', 5, 40000),
+(18, 'BK001', 5, 50000),
+(19, 'CK002', 3.8, 22800),
+(20, 'CK002', 2.6, 15600);
 
 -- Jumlah transaksi
 
@@ -466,10 +475,10 @@ ORDER BY
 ----------------------------------------------------------------------------------
 
 UPDATE transaksi
-SET id_pelanggan = 15600
-WHERE id_transaksi = 20;
+SET tgl_keluar = NULL
+WHERE status = 'Diproses';
 
-ALTER TABLE detail_transaksi AUTO_INCREMENT = 20;
+ALTER TABLE detail_transaksi AUTO_INCREMENT = 0;
 
 SELECT * FROM transaksi;
 SELECT * FROM detail_transaksi;
